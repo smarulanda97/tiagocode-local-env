@@ -1,9 +1,0 @@
-[submodule "admin"]
-	path = admin
-	url = git@github.com:smarulanda97/tiagocode-admin.git
-[submodule "website"]
-	path = website
-	url = git@github.com:smarulanda97/tiagocode-website.git
-[submodule "docker"]
-	path = docker
-	url = git@github.com:smarulanda97/tiagocode-docker.git
