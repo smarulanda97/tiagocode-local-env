@@ -22,6 +22,7 @@ function env_replace_vars() {
 
   if [ "${name}" == "docker" ]; then
     replace_var $env_file "APP_ENV" $ENV_TYPE
+    replace_var $env_file "APP_DOMAIN" $ENV_DOMAIN_EXT
     replace_var $env_file "APP_CODE_PATH_HOST" "..\/code\/"
     replace_var $env_file "APP_NAME" $ENV_DOMAIN_NAME
     replace_var $env_file "COMPOSE_PROJECT_NAME" $ENV_DOMAIN_NAME
@@ -38,6 +39,10 @@ function env_replace_vars() {
     replace_var $env_file "TRAEFIK_HOST_HTTP_PORT" $ENV_TRAEFIK_HTTP_PORT
     replace_var $env_file "TRAEFIK_HOST_HTTPS_PORT" $ENV_TRAEFIK_HTTPS_PORT
     replace_var $env_file "PHP_FPM_INSTALL_EXIF" true
+    replace_var $env_file "ACME_EMAIL" $ENV_ACME_EMAIL
+    replace_var $env_file "CLOUDFLARE_EMAIL" $ENV_CLOUDFLARE_EMAIL
+    replace_var $env_file "CLOUDFLARE_API_KEY" $ENV_CLOUDFLARE_API_KEY
+    replace_var $env_file "CLOUDFLARE_DNS" $ENV_CLOUDFLARE_DNS
   else
     replace_var $env_file "APP_NAME" $ENV_NAME-$ENV_DOMAIN_NAME
     replace_var $env_file "APP_DEBUG" true

@@ -57,6 +57,8 @@ do
   os_add_hostnames ${repo_name}
 done
 
+os_add_hostnames "traefik"
+
 #########################################################################################
 ## STARTING APPLICATION WITH DOCKER COMPOSE, AND CLEANING THE PREVIOUS DATA
 ## OF DB INSTALLATION (IT MIGHT BE NEEDED)
