@@ -47,41 +47,46 @@ This repository contains a basic installation script to set up my personal websi
 
 ```dotenv
 # ENVIRONMENT BUILDER
-ENV_DIR=/home/smarulanda97/Workspace/phpSites/www.tiagocode.com
-ENV_TYPE="local"
-ENV_DOMAIN_NAME="tiagocode"
-ENV_DOMAIN_EXT=".com"
-ENV_REPOSITORIES_SOURCE="https://github.com"
-ENV_REPOSITORIES="smarulanda97/tiagocode-docker,smarulanda97/tiagocode-website,smarulanda97/tiagocode-admin"
-ENV_DOCKER_DIR=".docker"
+ENV_DIR="/dir"
+ENV_TYPE="type"
+ENV_DOMAIN_NAME="domain_name"
+ENV_DOMAIN_EXT="domain_ext"
+ENV_REPOSITORIES_SOURCE="repositories_source"
+ENV_REPOSITORIES="repositories"
+ENV_DOCKER_DIR_NAME="docker_dir_name"
 
 # TRAEFIK
-ENV_TRAEFIK_HTTP_PORT=80
-ENV_TRAEFIK_HTTPS_PORT=443
+ENV_TRAEFIK_HTTP_PORT=traefik_http_port
+ENV_TRAEFIK_HTTPS_PORT=traefik_https_port
+
+# DNS-01 CHALLENGE
+ENV_ACME_EMAIL=acme_email
+ENV_CLOUDFLARE_EMAIL=cloudflare_api_user
+ENV_CLOUDFLARE_API_KEY=cloudflare_global_api_key
+ENV_CLOUDFLARE_DNS=cloudflare_dns,cloudflare_dns
 
 # CLEAN_DB_ON_INSTALL ONLY SUPPORTS TRUE/FALSE
-ENV_CLEAN_DB_ON_INSTALL=FALSE
+ENV_CLEAN_DB_ON_INSTALL=clean_db_on_install
 
 # DOCKER CONTAINERS TO ENABLE
-ENV_DOCKER_CONTAINERS="traefik postgres nginx-website nginx-admin php-fpm workspace redis"
+ENV_DOCKER_CONTAINERS="docker_containers"
 
 # PHP 8.2, 8.1, 7.4
-ENV_PHP_VERSION=8.2
+ENV_PHP_VERSION=php_version
 
 # MEMCACHED
-ENV_MEMCACHED_HOST=memcached
+ENV_MEMCACHED_HOST=memcached_host
 
 # POSTGRES DATABASE
-ENV_DATABASE_HOST=postgres
-ENV_DATABASE_PORT=5432
-ENV_DATABASE_CONNECTION=pgsql
-ENV_DATABASE_NAME=tiagocode_masterdb
-ENV_DATABASE_USER=tiagocode_user
-ENV_DATABASE_PASSWORD=tiagocode_12345
+ENV_DATABASE_HOST=db_host
+ENV_DATABASE_PORT=db_port
+ENV_DATABASE_CONNECTION=db_connection
+ENV_DATABASE_NAME=db_name
+ENV_DATABASE_USER=db_user
+ENV_DATABASE_PASSWORD=db_pass
 
 # REDIS CLIENT
-ENV_REDIS_HOST=redis
-ENV_REDIS_PORT=6379
-ENV_REDIS_PASSWORD=tiagocode_12345
-
+ENV_REDIS_HOST=redis_host
+ENV_REDIS_PORT=redis_port
+ENV_REDIS_PASSWORD=redis_password
 ```
