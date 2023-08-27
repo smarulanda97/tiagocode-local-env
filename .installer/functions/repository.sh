@@ -5,7 +5,7 @@ function clone_repository {
   identifier=$2
 
   if ! [ -d "${directory}" ]; then
-    git clone ${ENV_REPOSITORIES_SOURCE}/${identifier}.git $directory
+    git clone ${ENV_REPOSITORIES_SOURCE}${identifier}.git $directory
   else
     echo "INFO: repository ${identifier}.git already exists."
   fi
