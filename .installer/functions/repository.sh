@@ -42,18 +42,16 @@ function env_replace_vars() {
     replace_var $env_file "TRAEFIK_HOST_TCP_PORT" $ENV_TRAEFIK_HOST_TCP_PORT
     replace_var $env_file "TRAEFIK_DASHBOARD_PORT" $ENV_TRAEFIK_DASHBOARD_PORT
     replace_var $env_file "TRAEFIK_DASHBOARD_USER" "$ENV_TRAEFIK_DASHBOARD_USER"
-#    echo $ENV_TRAEFIK_DASHBOARD_USER
-#    exit
     replace_var $env_file "PHP_FPM_INSTALL_EXIF" true
     replace_var $env_file "ACME_EMAIL" $ENV_ACME_EMAIL
     replace_var $env_file "CLOUDFLARE_EMAIL" $ENV_CLOUDFLARE_EMAIL
     replace_var $env_file "CLOUDFLARE_API_KEY" $ENV_CLOUDFLARE_API_KEY
     replace_var $env_file "CLOUDFLARE_DNS" $ENV_CLOUDFLARE_DNS
   else
-    replace_var $env_file "APP_NAME" $ENV_NAME-$ENV_DOMAIN_NAME
+    replace_var $env_file "APP_NAME" $name-$ENV_DOMAIN_NAME
     replace_var $env_file "APP_DEBUG" true
     replace_var $env_file "APP_ENV" $ENV_TYPE
-    replace_var $env_file "APP_URL" "https:\/\/$ENV_TYPE-$ENV_DOMAIN_NAME$ENV_DOMAIN_EXT"
+    replace_var $env_file "APP_URL" "https:\/\/$ENV_TYPE-$name.$ENV_DOMAIN_NAME$ENV_DOMAIN_EXT"
     replace_var $env_file "DB_CONNECTION" $ENV_DATABASE_CONNECTION
     replace_var $env_file "DB_HOST" $ENV_DATABASE_HOST
     replace_var $env_file "DB_PORT" $ENV_DATABASE_PORT
