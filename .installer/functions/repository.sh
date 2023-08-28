@@ -21,14 +21,15 @@ function env_replace_vars() {
   echo "INFO: replacing env variables for the file '${name}/.env'."
 
   if [ "${name}" == "docker" ]; then
-    replace_var $env_file "APP_ENV" $ENV_TYPE
-    replace_var $env_file "APP_DOMAIN" $ENV_DOMAIN_EXT
+    replace_var $env_file "APP_ENV_TYPE" $ENV_TYPE
+    replace_var $env_file "APP_DOMAIN_NAME" $ENV_DOMAIN_NAME
+    replace_var $env_file "APP_DOMAIN_EXT" $ENV_DOMAIN_EXT
     replace_var $env_file "APP_CODE_PATH_HOST" "..\/code\/"
-    replace_var $env_file "APP_NAME" $ENV_DOMAIN_NAME
     replace_var $env_file "COMPOSE_PROJECT_NAME" $ENV_DOMAIN_NAME
     replace_var $env_file "DATA_PATH_HOST" "~\/.$ENV_DOMAIN_NAME\/data"
     replace_var $env_file "PHP_IDE_CONFIG" serverName=$ENV_DOMAIN_NAME
     replace_var $env_file "PHP_VERSION" $ENV_PHP_VERSION
+    replace_var $env_file "POSTGRES_VERSION" $ENV_DATABASE_VERSION
     replace_var $env_file "POSTGRES_DB" $ENV_DATABASE_NAME
     replace_var $env_file "POSTGRES_USER" $ENV_DATABASE_USER
     replace_var $env_file "POSTGRES_PASSWORD" $ENV_DATABASE_PASSWORD
@@ -36,8 +37,13 @@ function env_replace_vars() {
     replace_var $env_file "REDIS_PORT" $ENV_REDIS_PORT
     replace_var $env_file "REDIS_PASSWORD" $ENV_REDIS_PASSWORD
     replace_var $env_file "WORKSPACE_INSTALL_YARN" false
-    replace_var $env_file "TRAEFIK_HOST_HTTP_PORT" $ENV_TRAEFIK_HTTP_PORT
-    replace_var $env_file "TRAEFIK_HOST_HTTPS_PORT" $ENV_TRAEFIK_HTTPS_PORT
+    replace_var $env_file "TRAEFIK_HOST_HTTP_PORT" $ENV_TRAEFIK_HOST_HTTP_PORT
+    replace_var $env_file "TRAEFIK_HOST_HTTPS_PORT" $ENV_TRAEFIK_HOST_HTTPS_PORT
+    replace_var $env_file "TRAEFIK_HOST_TCP_PORT" $ENV_TRAEFIK_HOST_TCP_PORT
+    replace_var $env_file "TRAEFIK_DASHBOARD_PORT" $ENV_TRAEFIK_DASHBOARD_PORT
+    replace_var $env_file "TRAEFIK_DASHBOARD_USER" "$ENV_TRAEFIK_DASHBOARD_USER"
+#    echo $ENV_TRAEFIK_DASHBOARD_USER
+#    exit
     replace_var $env_file "PHP_FPM_INSTALL_EXIF" true
     replace_var $env_file "ACME_EMAIL" $ENV_ACME_EMAIL
     replace_var $env_file "CLOUDFLARE_EMAIL" $ENV_CLOUDFLARE_EMAIL

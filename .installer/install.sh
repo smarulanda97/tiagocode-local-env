@@ -58,6 +58,7 @@ do
 done
 
 os_add_hostnames "traefik"
+os_add_hostnames "portainer"
 
 #########################################################################################
 ## STARTING APPLICATION WITH DOCKER COMPOSE, AND CLEANING THE PREVIOUS DATA
