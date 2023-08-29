@@ -1,15 +1,18 @@
 include .env
 
-DOCKER_COMPOSE_FILE != echo "${ENV_DOCKER_DIR_NAME}/docker-compose.yml" | sed 's/"//g'
-ENV_DOCKER_CONTAINERS != echo "${ENV_DOCKER_CONTAINERS}" | sed 's/"//g'
+BASE_DIR != echo "${ENV_BASE_DIR}" | sed 's/"//g'
+DOCKER_DIR != echo "${ENV_BASE_DIR}/${ENV_DOCKER_DIR_NAME}" | sed 's/"//g'
+CERTS_DIR != echo "${DOCKER_DIR}/traefik-certs-dumper/.certs" | sed 's/"//g'
+DOCKER_COMPOSE_FILE != echo "${DOCKER_DIR}/docker-compose.yml" | sed 's/"//g'
+DOCKER_COMPOSE_FILE != echo "${DOCKER_DIR}/docker-compose.yml" | sed 's/"//g'
 
 .PHONY: install
 install:
-	sudo chmod +x ./.installer/install.sh && ./.installer/install.sh
+	@sudo chmod +x ./.installer/install.sh && ./.installer/install.sh
 
 .PHONY: start
 start:
-	docker compose -f $(DOCKER_COMPOSE_FILE) up -d $(ENV_DOCKER_CONTAINERS)
+	@docker compose -f $(DOCKER_COMPOSE_FILE) up -d $(ENV_DOCKER_CONTAINERS)
 
 .PHONY: stop
 stop:
@@ -25,8 +28,14 @@ clean:
 
 .PHONY: exec
 exec:
-	docker compose -f $(DOCKER_COMPOSE_FILE) exec --user=root --workdir=/var/www/ workspace bash
+	@docker compose -f $(DOCKER_COMPOSE_FILE) exec --user=root --workdir=/var/www/ workspace bash
 
 .PHONY: logs
 logs:
 	@docker compose -f $(DOCKER_COMPOSE_FILE) logs --follow
+
+.PHONY: certs
+certs:
+	@docker compose -f $(DOCKER_COMPOSE_FILE)  up -d traefik-certs-dumper
+	@cp -r $(CERTS_DIR) $(BASE_DIR)/code/website/
+	@cp -r $(CERTS_DIR) $(BASE_DIR)/code/admin/
