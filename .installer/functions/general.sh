@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function replace_var() {
-  FILE=$1
-  VAR_NAME=$2
-  VAR_VALUE=$3
+  file=$1
+  variable_name=$2
+  variable_value=$3
 
-  sed -i "s/$VAR_NAME=.*/$VAR_NAME=$VAR_VALUE/g" $FILE
+  sed -i "s/$variable_name=.*/$variable_name=$variable_value/g" $file
 }
 
 function file_system_change_owner {
@@ -17,10 +17,10 @@ function file_system_change_owner {
 }
 
 function os_add_hostnames {
-  name=$1
-  hostname="$ENV_TYPE-$name.$ENV_DOMAIN_NAME$ENV_DOMAIN_EXT"
+  project_name=$1
+  hostname="$ENV_TYPE-$project_name.$ENV_DOMAIN_NAME"
 
-  if [ "$name" == "docker" ]; then
+  if [ "$project_name" == "docker" ]; then
     return
   fi
 

@@ -1,32 +1,31 @@
 #!/bin/bash
 
 function clone_repository {
-  directory=$1
-  identifier=$2
+  repo_dir=$1
+  repos_id=$2
 
-  if ! [ -d "${directory}" ]; then
-    git clone ${ENV_REPOSITORIES_SOURCE}${identifier}.git $directory
+  if ! [ -d "${repo_dir}" ]; then
+    git clone ${ENV_REPOSITORIES_SOURCE}${repos_id}.git $repo_dir
   else
-    echo "INFO: repository ${identifier}.git already exists."
+    echo "INFO: repository ${repos_id}.git already exists."
   fi
 }
 
 function env_replace_vars() {
-  directory=$1
-  name=$2
-  env_file="${directory}/.env"
+  project_dir=$1
+  project_name=$2
+  env_file="${project_dir}/.env"
 
-  cp ${directory}/.env.example ${env_file}
+  cp ${project_dir}/.env.example ${env_file}
 
-  echo "INFO: replacing env variables for the file '${name}/.env'."
+  echo "INFO: replacing env variables for the file '${project_name}/.env'."
 
-  if [ "${name}" == "docker" ]; then
+  if [ "${project_name}" == "docker" ]; then
     replace_var $env_file "APP_ENV_TYPE" $ENV_TYPE
     replace_var $env_file "APP_DOMAIN_NAME" $ENV_DOMAIN_NAME
-    replace_var $env_file "APP_DOMAIN_EXT" $ENV_DOMAIN_EXT
     replace_var $env_file "APP_CODE_PATH_HOST" "..\/code\/"
-    replace_var $env_file "COMPOSE_PROJECT_NAME" $ENV_DOMAIN_NAME
-    replace_var $env_file "DATA_PATH_HOST" "~\/.$ENV_DOMAIN_NAME\/data"
+    replace_var $env_file "COMPOSE_PROJECT_NAME" $ENV_NAME
+    replace_var $env_file "DATA_PATH_HOST" "~\/.$ENV_NAME\/data"
     replace_var $env_file "PHP_IDE_CONFIG" serverName=$ENV_DOMAIN_NAME
     replace_var $env_file "PHP_VERSION" $ENV_PHP_VERSION
     replace_var $env_file "POSTGRES_VERSION" $ENV_DATABASE_VERSION
@@ -37,21 +36,23 @@ function env_replace_vars() {
     replace_var $env_file "REDIS_PORT" $ENV_REDIS_PORT
     replace_var $env_file "REDIS_PASSWORD" $ENV_REDIS_PASSWORD
     replace_var $env_file "WORKSPACE_INSTALL_YARN" false
-    replace_var $env_file "TRAEFIK_HOST_HTTP_PORT" $ENV_TRAEFIK_HOST_HTTP_PORT
-    replace_var $env_file "TRAEFIK_HOST_HTTPS_PORT" $ENV_TRAEFIK_HOST_HTTPS_PORT
-    replace_var $env_file "TRAEFIK_HOST_TCP_PORT" $ENV_TRAEFIK_HOST_TCP_PORT
+    replace_var $env_file "PHP_FPM_INSTALL_EXIF" true
+    replace_var $env_file "TRAEFIK_WEB_PORT" $ENV_TRAEFIK_WEB_PORT
+    replace_var $env_file "TRAEFIK_WEBSECURE_PORT" $ENV_TRAEFIK_WEBSECURE_PORT
+    replace_var $env_file "TRAEFIK_DATABASE_PORT" $ENV_TRAEFIK_DATABASE_PORT
+    replace_var $env_file "TRAEFIK_REDIS_PORT" $ENV_TRAEFIK_REDIS_PORT
+    replace_var $env_file "TRAEFIK_VITE_PORT" $ENV_TRAEFIK_VITE_PORT
     replace_var $env_file "TRAEFIK_DASHBOARD_PORT" $ENV_TRAEFIK_DASHBOARD_PORT
     replace_var $env_file "TRAEFIK_DASHBOARD_USER" "$ENV_TRAEFIK_DASHBOARD_USER"
-    replace_var $env_file "PHP_FPM_INSTALL_EXIF" true
-    replace_var $env_file "ACME_EMAIL" $ENV_ACME_EMAIL
-    replace_var $env_file "CLOUDFLARE_EMAIL" $ENV_CLOUDFLARE_EMAIL
-    replace_var $env_file "CLOUDFLARE_API_KEY" $ENV_CLOUDFLARE_API_KEY
-    replace_var $env_file "CLOUDFLARE_DNS" $ENV_CLOUDFLARE_DNS
+    replace_var $env_file "TRAEFIK_ACME_EMAIL" $ENV_TRAEFIK_ACME_EMAIL
+    replace_var $env_file "TRAEFIK_CLOUDFLARE_EMAIL" $ENV_TRAEFIK_CLOUDFLARE_EMAIL
+    replace_var $env_file "TRAEFIK_CLOUDFLARE_API_KEY" $ENV_TRAEFIK_CLOUDFLARE_API_KEY
+    replace_var $env_file "TRAEFIK_CLOUDFLARE_DNS" $ENV_TRAEFIK_CLOUDFLARE_DNS
   else
-    replace_var $env_file "APP_NAME" $name-$ENV_DOMAIN_NAME
-    replace_var $env_file "APP_DEBUG" true
+    replace_var $env_file "APP_NAME" $project_name-$ENV_NAME
+    replace_var $env_file "APP_DEBUG" $ENV_DEBUG
     replace_var $env_file "APP_ENV" $ENV_TYPE
-    replace_var $env_file "APP_URL" "https:\/\/$ENV_TYPE-$name.$ENV_DOMAIN_NAME$ENV_DOMAIN_EXT"
+    replace_var $env_file "APP_URL" "https:\/\/$ENV_TYPE-$project_name.$ENV_DOMAIN_NAME"
     replace_var $env_file "DB_CONNECTION" $ENV_DATABASE_CONNECTION
     replace_var $env_file "DB_HOST" $ENV_DATABASE_HOST
     replace_var $env_file "DB_PORT" $ENV_DATABASE_PORT
