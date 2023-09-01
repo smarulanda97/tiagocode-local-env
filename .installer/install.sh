@@ -57,6 +57,7 @@ do
   os_add_hostnames ${repo_name}
 done
 
+os_add_hostnames "vitest"
 os_add_hostnames "traefik"
 os_add_hostnames "portainer"
 

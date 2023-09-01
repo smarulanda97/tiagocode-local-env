@@ -37,5 +37,16 @@ logs:
 .PHONY: certs
 certs:
 	@docker compose -f $(DOCKER_COMPOSE_FILE)  up -d traefik-certs-dumper
-	@cp -r $(CERTS_DIR) $(BASE_DIR)/code/website/
-	@cp -r $(CERTS_DIR) $(BASE_DIR)/code/admin/
+	@cp -r $(CERTS_DIR) $(BASE_DIR)/code/website/ && cp -r $(CERTS_DIR) $(BASE_DIR)/code/admin/
+
+.PHONY: run-dev
+run-dev:
+	@docker compose -f $(DOCKER_COMPOSE_FILE) exec --user=root --workdir=/var/www/website workspace npm run dev -- --host
+
+.PHONY: run-test
+run-test:
+	@docker compose -f $(DOCKER_COMPOSE_FILE) exec --user=root --workdir=/var/www/website workspace npm run test
+
+.PHONY: run-test-ui
+run-test-ui:
+	@docker compose -f $(DOCKER_COMPOSE_FILE) exec --user=root --workdir=/var/www/website workspace npm run test:ui
