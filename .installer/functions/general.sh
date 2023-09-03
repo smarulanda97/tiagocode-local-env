@@ -2,10 +2,11 @@
 
 function replace_var() {
   file=$1
-  variable_name=$2
-  variable_value=$3
+  delimiter=$2
+  variable_name=$3
+  variable_value=$4
 
-  sed -i "s/$variable_name=.*/$variable_name=$variable_value/g" $file
+  sed -i "s${delimiter}$variable_name=.*${delimiter}$variable_name=$variable_value${delimiter}g" $file
 }
 
 function file_system_change_owner {
