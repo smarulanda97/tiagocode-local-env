@@ -51,13 +51,12 @@ do
   clone_repository ${repo_dir} ${repo_id}
 
   env_replace_vars ${repo_dir} ${repo_name}
-
-  nginx_add_host_file ${docker_dir} ${repo_name}
-
-  os_add_hostnames ${repo_name}
 done
 
-os_add_hostnames "vitest"
+nginx_add_host_file ${docker_dir} "admin"
+
+os_add_hostnames "website"
+os_add_hostnames "admin"
 os_add_hostnames "traefik"
 os_add_hostnames "portainer"
 
@@ -78,7 +77,7 @@ file_system_change_owner $ENV_BASE_DIR $USER
 
 for repo_id in "${repositories[@]}"; do
   repo_name=$(echo $repo_id | awk -F'[-]' '{print $2}')
-  if ! [ "$repo_name" == "docker" ]; then
+  if ! [ "$repo_name" == "docker" ] && ! [ "$repo_name" == "website" ]; then
     for command in "${installation_commands[@]}"; do
       docker_compose_exec $docker_dir "/var/www/$repo_name" workspace "$command"
     done

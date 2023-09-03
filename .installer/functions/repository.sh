@@ -23,7 +23,10 @@ function env_replace_vars() {
   if [ "${project_name}" == "docker" ]; then
     replace_var $env_file "APP_ENV_TYPE" $ENV_TYPE
     replace_var $env_file "APP_DOMAIN_NAME" $ENV_DOMAIN_NAME
-    replace_var $env_file "APP_CODE_PATH_HOST" "..\/code\/"
+    replace_var $env_file "BACKEND_APP_CODE_PATH_HOST" "$ENV_BACKEND_APP_CODE_PATH_HOST"
+    replace_var $env_file "BACKEND_APP_CODE_PATH_CONTAINER" "$ENV_BACKEND_APP_CODE_PATH_CONTAINER"
+    replace_var $env_file "FRONTEND_APP_CODE_PATH_HOST" "$ENV_FRONTEND_APP_CODE_PATH_HOST"
+    replace_var $env_file "FRONTEND_APP_CODE_PATH_CONTAINER" "$ENV_FRONTEND_APP_CODE_PATH_CONTAINER"
     replace_var $env_file "COMPOSE_PROJECT_NAME" $ENV_NAME
     replace_var $env_file "DATA_PATH_HOST" "~\/.$ENV_NAME\/data"
     replace_var $env_file "PHP_IDE_CONFIG" serverName=$ENV_DOMAIN_NAME

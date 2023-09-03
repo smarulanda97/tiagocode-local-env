@@ -9,13 +9,12 @@ function nginx_add_host_file {
     return
   fi
 
-  hostname="$ENV_TYPE-$project_name.$ENV_DOMAIN_NAME"
-  destination_file="$docker_dir/nginx/sites/$project_name/$hostname.conf"
-
   echo "INFO: creating nginx config file $hostname."
 
-  mkdir -p "$docker_dir/nginx/sites/$project_name";
-  sudo rm -rf "$docker_dir/nginx/sites/$project_name/*";
+  hostname="$ENV_TYPE-$project_name.$ENV_DOMAIN_NAME"
+  destination_file="$docker_dir/nginx/sites/$hostname.conf"
+
+  sudo rm -f "$docker_dir/nginx/sites/$hostname.conf";
   cp $installer_dir/config/nginx/example.conf $destination_file
 
   sed -i "s/server_name .*;$/server_name $hostname;/g" $destination_file
